@@ -12,7 +12,6 @@ import {
   TurnstileWidget,
   TurnstileRef,
 } from "@/lib/cloudflare/TurnstileWidget";
-import Link from "next/link";
 
 export default function TwoFactorPage() {
   const searchParams = useSearchParams();
