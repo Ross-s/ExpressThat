@@ -7,6 +7,9 @@ import {
 } from "@heroicons/react/24/outline";
 import { authClient } from "@/lib/auth-client";
 import PasswordInput from "@/components/ui/PasswordInput";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 interface DangerTabProps {
   onError: (error: string) => void;
@@ -52,12 +55,12 @@ export default function DangerTab({ onError, onClose }: DangerTabProps) {
 
   return (
     <div className="animate-in fade-in slide-in-from-right-4 duration-500">
-      <div className="bg-error/10 border border-error/20 rounded-lg p-4">
-        <h3 className="font-semibold mb-4 text-error flex items-center">
+      <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+        <h3 className="font-semibold mb-4 text-red-600 flex items-center">
           <ExclamationTriangleIcon className="h-5 w-5 mr-2" />
           Danger Zone
         </h3>
-        <p className="text-base-content/70 text-sm mb-6">
+        <p className="text-gray-600 text-sm mb-6">
           Once you delete your account, there is no going back. Please be
           certain.
         </p>{" "}
@@ -75,17 +78,15 @@ export default function DangerTab({ onError, onClose }: DangerTabProps) {
             required
           />
 
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">
-                Type <span className="font-mono font-bold">DELETE</span> to
-                confirm
-              </span>
-            </label>
-            <input
+          <div className="space-y-2">
+            <Label>
+              Type <span className="font-mono font-bold">DELETE</span> to
+              confirm
+            </Label>
+            <Input
               type="text"
               placeholder="DELETE"
-              className="input input-bordered w-full min-h-[48px]"
+              className="min-h-[48px]"
               value={deleteAccountData.confirmText}
               onChange={(e) =>
                 setDeleteAccountData({
@@ -97,17 +98,18 @@ export default function DangerTab({ onError, onClose }: DangerTabProps) {
             />
           </div>
 
-          <button
+          <Button
             type="submit"
-            className="btn btn-error w-full"
+            variant="destructive"
+            className="w-full"
             disabled={loading || deleteAccountData.confirmText !== "DELETE"}
           >
             {loading && (
-              <span className="loading loading-spinner loading-sm"></span>
+              <span className="animate-spin mr-2 h-4 w-4 border-2 border-white border-t-transparent rounded-full"></span>
             )}
             <TrashIcon className="h-5 w-5 mr-2" />
             Delete Account
-          </button>
+          </Button>
         </form>
       </div>
     </div>

@@ -2,13 +2,20 @@
 
 import { useState, useEffect } from "react";
 import {
-  XMarkIcon,
   UserIcon,
   ShieldCheckIcon,
   CreditCardIcon,
   ExclamationTriangleIcon,
 } from "@heroicons/react/24/outline";
 import { authClient } from "@/lib/auth-client";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
 import ProfileTab from "./ProfileTab";
 import SecurityTab from "./SecurityTab";
 import BillingTab from "./BillingTab";
@@ -67,85 +74,82 @@ export default function MyAccount({ isOpen, onClose }: MyAccountProps) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50 animate-in fade-in duration-300">
-      <div className="card w-full max-w-2xl bg-base-100 shadow-2xl animate-in slide-in-from-bottom-8 duration-500 max-h-[90vh] overflow-hidden">
-        {/* Header */}
-        <div className="card-body pb-0">
-          <div className="flex items-center justify-between mb-6">
-            <h1 className="text-2xl font-bold text-base-content">
-              Account Settings
-            </h1>
-            <button
-              onClick={onClose}
-              className="btn btn-ghost btn-sm btn-circle hover:bg-base-200"
-            >
-              <XMarkIcon className="h-5 w-5" />
-            </button>
-          </div>
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="max-w-2xl max-h-[90vh] overflow-hidden p-0">
+        <DialogHeader className="p-6 pb-0">
+          <DialogTitle className="text-2xl font-bold">
+            Account Settings
+          </DialogTitle>
+        </DialogHeader>
 
-          {/* Tabs */}
-          <div className="flex bg-base-200 p-1 rounded-lg mb-6">
-            <button
-              className={`flex-1 py-2 px-4 rounded-md font-medium transition-all duration-300 transform text-sm ${
+        {/* Tabs */}
+        <div className="px-6">
+          <div className="flex bg-gray-100 p-1 rounded-lg mb-6">
+            <Button
+              variant={activeTab === "profile" ? "default" : "ghost"}
+              className={`flex-1 py-2 px-4 text-sm ${
                 activeTab === "profile"
-                  ? "bg-base-100 text-base-content shadow-md translate-y-0 scale-[1.02]"
-                  : "bg-transparent text-base-content/70 shadow-inner translate-y-0.5 hover:translate-y-0 hover:text-base-content/90"
+                  ? "shadow-md"
+                  : "shadow-none hover:bg-gray-200"
               }`}
               onClick={() => handleTabChange("profile")}
             >
-              <UserIcon className="h-4 w-4 inline mr-1" />
+              <UserIcon className="h-4 w-4 mr-1" />
               Profile
-            </button>
-            <button
-              className={`flex-1 py-2 px-4 rounded-md font-medium transition-all duration-300 transform text-sm ${
+            </Button>
+            <Button
+              variant={activeTab === "security" ? "default" : "ghost"}
+              className={`flex-1 py-2 px-4 text-sm ${
                 activeTab === "security"
-                  ? "bg-base-100 text-base-content shadow-md translate-y-0 scale-[1.02]"
-                  : "bg-transparent text-base-content/70 shadow-inner translate-y-0.5 hover:translate-y-0 hover:text-base-content/90"
+                  ? "shadow-md"
+                  : "shadow-none hover:bg-gray-200"
               }`}
               onClick={() => handleTabChange("security")}
             >
-              <ShieldCheckIcon className="h-4 w-4 inline mr-1" />
+              <ShieldCheckIcon className="h-4 w-4 mr-1" />
               Security
-            </button>
-            <button
-              className={`flex-1 py-2 px-4 rounded-md font-medium transition-all duration-300 transform text-sm ${
+            </Button>
+            <Button
+              variant={activeTab === "billing" ? "default" : "ghost"}
+              className={`flex-1 py-2 px-4 text-sm ${
                 activeTab === "billing"
-                  ? "bg-base-100 text-base-content shadow-md translate-y-0 scale-[1.02]"
-                  : "bg-transparent text-base-content/70 shadow-inner translate-y-0.5 hover:translate-y-0 hover:text-base-content/90"
+                  ? "shadow-md"
+                  : "shadow-none hover:bg-gray-200"
               }`}
               onClick={() => handleTabChange("billing")}
             >
-              <CreditCardIcon className="h-4 w-4 inline mr-1" />
+              <CreditCardIcon className="h-4 w-4 mr-1" />
               Billing
-            </button>
-            <button
-              className={`flex-1 py-2 px-4 rounded-md font-medium transition-all duration-300 transform text-sm ${
+            </Button>
+            <Button
+              variant={activeTab === "danger" ? "default" : "ghost"}
+              className={`flex-1 py-2 px-4 text-sm ${
                 activeTab === "danger"
-                  ? "bg-base-100 text-base-content shadow-md translate-y-0 scale-[1.02]"
-                  : "bg-transparent text-base-content/70 shadow-inner translate-y-0.5 hover:translate-y-0 hover:text-base-content/90"
+                  ? "shadow-md"
+                  : "shadow-none hover:bg-gray-200"
               }`}
               onClick={() => handleTabChange("danger")}
             >
-              <ExclamationTriangleIcon className="h-4 w-4 inline mr-1" />
+              <ExclamationTriangleIcon className="h-4 w-4 mr-1" />
               Danger
-            </button>
+            </Button>
           </div>
         </div>
 
         {/* Content */}
-        <div className="card-body pt-0 overflow-y-auto">
+        <div className="px-6 pb-6 overflow-y-auto">
           {/* Error/Success Messages */}
           {error && (
-            <div className="alert alert-error mb-4 animate-in slide-in-from-top-2 duration-300">
-              <ExclamationTriangleIcon className="h-5 w-5" />
-              <span>{error}</span>
-            </div>
+            <Alert variant="destructive" className="mb-4">
+              <ExclamationTriangleIcon className="h-4 w-4" />
+              <AlertDescription>{error}</AlertDescription>
+            </Alert>
           )}
 
           {success && (
-            <div className="alert alert-success mb-4 animate-in slide-in-from-top-2 duration-300">
+            <Alert className="mb-4 border-green-200 bg-green-50 text-green-800">
               <svg
-                className="w-5 h-5"
+                className="w-4 h-4"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -157,8 +161,8 @@ export default function MyAccount({ isOpen, onClose }: MyAccountProps) {
                   d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
                 />
               </svg>
-              <span>{success}</span>
-            </div>
+              <AlertDescription>{success}</AlertDescription>
+            </Alert>
           )}
 
           {/* Tab Content */}
@@ -184,7 +188,7 @@ export default function MyAccount({ isOpen, onClose }: MyAccountProps) {
             <DangerTab onError={handleError} onClose={onClose} />
           )}
         </div>
-      </div>
-    </div>
+      </DialogContent>
+    </Dialog>
   );
 }
