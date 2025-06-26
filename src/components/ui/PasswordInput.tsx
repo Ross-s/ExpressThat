@@ -6,6 +6,8 @@ import {
   EyeIcon,
   EyeSlashIcon,
 } from "@heroicons/react/24/outline";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 interface PasswordStrength {
   score: number;
@@ -44,10 +46,10 @@ const getPasswordStrength = (password: string): PasswordStrength => {
   score = Object.values(checks).filter(Boolean).length;
 
   if (score === 0) return { score: 0, label: "", color: "" };
-  if (score <= 2) return { score: 1, label: "Weak", color: "bg-error" };
-  if (score <= 3) return { score: 2, label: "Fair", color: "bg-warning" };
-  if (score <= 4) return { score: 3, label: "Good", color: "bg-info" };
-  return { score: 4, label: "Strong", color: "bg-success" };
+  if (score <= 2) return { score: 1, label: "Weak", color: "bg-red-500" };
+  if (score <= 3) return { score: 2, label: "Fair", color: "bg-yellow-500" };
+  if (score <= 4) return { score: 3, label: "Good", color: "bg-blue-500" };
+  return { score: 4, label: "Strong", color: "bg-green-500" };
 };
 
 const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
@@ -80,21 +82,17 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
     };
 
     return (
-      <div className={`form-control ${className}`}>
-        {label && (
-          <label className="label" htmlFor={id}>
-            <span className="label-text">{label}</span>
-          </label>
-        )}
+      <div className={`space-y-2 ${className}`}>
+        {label && <Label htmlFor={id}>{label}</Label>}
         <div className="relative">
-          <input
+          <Input
             ref={ref}
             id={id}
             type={showPassword ? "text" : "password"}
             name={name}
             placeholder={placeholder}
-            className={`input input-bordered w-full pl-10 pr-12 min-h-[48px] transition-all duration-200 hover:shadow-sm ${
-              error ? "input-error" : ""
+            className={`pl-10 pr-12 min-h-[48px] ${
+              error ? "border-red-500 focus-visible:ring-red-500" : ""
             }`}
             value={value}
             onChange={handleInputChange}
@@ -102,28 +100,24 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
             required={required}
             disabled={disabled}
           />
-          <LockClosedIcon className="h-5 w-5 absolute left-3 top-3 text-base-content/40" />
+          <LockClosedIcon className="h-5 w-5 absolute left-3 top-3 text-gray-400" />
           <button
             type="button"
-            className="absolute right-3 top-3 w-6 h-6 flex items-center justify-center z-10 hover:bg-base-200 rounded"
+            className="absolute right-3 top-3 w-6 h-6 flex items-center justify-center z-10 hover:bg-gray-100 rounded"
             onClick={togglePasswordVisibility}
             aria-label={showPassword ? "Hide password" : "Show password"}
             disabled={disabled}
           >
             {showPassword ? (
-              <EyeSlashIcon className="h-5 w-5 text-base-content/60 hover:text-base-content" />
+              <EyeSlashIcon className="h-5 w-5 text-gray-600 hover:text-gray-900" />
             ) : (
-              <EyeIcon className="h-5 w-5 text-base-content/60 hover:text-base-content" />
+              <EyeIcon className="h-5 w-5 text-gray-600 hover:text-gray-900" />
             )}
           </button>
         </div>
 
         {/* Error Message */}
-        {error && (
-          <div className="label">
-            <span className="label-text-alt text-error">{error}</span>
-          </div>
-        )}
+        {error && <p className="text-sm text-red-600">{error}</p>}
 
         {/* Password Strength Indicator */}
         {showStrengthIndicator && value && (
@@ -136,7 +130,7 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
                   className={`h-2 flex-1 rounded-full transition-all duration-300 ${
                     level <= passwordStrength.score
                       ? passwordStrength.color
-                      : "bg-base-300"
+                      : "bg-gray-200"
                   }`}
                 />
               ))}
@@ -145,16 +139,16 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
             {/* Strength Label */}
             {passwordStrength.label && (
               <div className="flex justify-between text-xs">
-                <span className="text-base-content/60">Password strength:</span>
+                <span className="text-gray-500">Password strength:</span>
                 <span
                   className={`font-medium ${
                     passwordStrength.score === 1
-                      ? "text-error"
+                      ? "text-red-600"
                       : passwordStrength.score === 2
-                        ? "text-warning"
+                        ? "text-yellow-600"
                         : passwordStrength.score === 3
-                          ? "text-info"
-                          : "text-success"
+                          ? "text-blue-600"
+                          : "text-green-600"
                   }`}
                 >
                   {passwordStrength.label}
@@ -164,24 +158,26 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
 
             {/* Password Requirements */}
             {showStrengthIndicator && passwordStrength.score < 4 && (
-              <div className="text-xs text-base-content/60 space-y-1">
+              <div className="text-xs text-gray-500 space-y-1">
                 <p>Password must contain:</p>
                 <ul className="list-disc list-inside space-y-1 ml-2">
-                  <li className={value.length >= 8 ? "text-success" : ""}>
+                  <li className={value.length >= 8 ? "text-green-600" : ""}>
                     At least 8 characters
                   </li>
-                  <li className={/[A-Z]/.test(value) ? "text-success" : ""}>
+                  <li className={/[A-Z]/.test(value) ? "text-green-600" : ""}>
                     One uppercase letter
                   </li>
-                  <li className={/[a-z]/.test(value) ? "text-success" : ""}>
+                  <li className={/[a-z]/.test(value) ? "text-green-600" : ""}>
                     One lowercase letter
                   </li>
-                  <li className={/\d/.test(value) ? "text-success" : ""}>
+                  <li className={/\d/.test(value) ? "text-green-600" : ""}>
                     One number
                   </li>
                   <li
                     className={
-                      /[!@#$%^&*(),.?":{}|<>]/.test(value) ? "text-success" : ""
+                      /[!@#$%^&*(),.?":{}|<>]/.test(value)
+                        ? "text-green-600"
+                        : ""
                     }
                   >
                     One special character
