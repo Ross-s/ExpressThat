@@ -14,7 +14,7 @@ class EmailClient {
 
     if (!accessKeyId || !secretAccessKey) {
       throw new Error(
-        "Missing AWS credentials: AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY must be set in the environment variables."
+        "Missing AWS credentials: AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY must be set in the environment variables.",
       );
     }
 
