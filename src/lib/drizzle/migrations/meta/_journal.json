@@ -1,0 +1,34 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1749865734968,
+      "tag": "0000_tearful_silver_centurion",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1749866721954,
+      "tag": "0001_uneven_stepford_cuckoos",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1749867809440,
+      "tag": "0002_redundant_morlocks",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1750507830019,
+      "tag": "0003_flowery_stryfe",
+      "breakpoints": true
+    }
+  ]
+}
