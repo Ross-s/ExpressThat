@@ -1,13 +1,13 @@
 # ExpressThat
 
-A modern system built with **Next.js 15**, **TypeScript**, **Tailwind CSS**, and **HeroUI**.
+A modern system built with **Next.js 15**, **TypeScript**, **Tailwind CSS**, and **shadcn/ui**.
 
 ## Features
 
 - ⚡ **Next.js 15** with App Router
 - 🔷 **TypeScript** for type safety
 - 🎨 **Tailwind CSS** for styling
-- 🎭 **HeroUI** for beautiful, accessible components
+- 🎭 **shadcn/ui** for beautiful, accessible components
 - 📱 Responsive design
 - ⚡ Turbopack for fast development
 
@@ -16,8 +16,8 @@ A modern system built with **Next.js 15**, **TypeScript**, **Tailwind CSS**, and
 - **Framework**: Next.js 15 (App Router)
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS v4
-- **UI Components**: HeroUI
-- **Animation**: Framer Motion (via HeroUI)
+- **UI Components**: shadcn/ui
+- **State Management**: React hooks
 
 ## Getting Started
 
@@ -51,8 +51,10 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 src/
 ├── app/
 │   ├── globals.css      # Global styles with Tailwind
-│   ├── layout.tsx       # Root layout with HeroUI provider
+│   ├── layout.tsx       # Root layout
 │   └── page.tsx         # Home page
+├── components/
+│   └── ui/              # shadcn/ui components
 ```
 
 ## Learn More
@@ -60,7 +62,7 @@ src/
 - [Next.js Documentation](https://nextjs.org/docs)
 - [TypeScript Documentation](https://www.typescriptlang.org/docs/)
 - [Tailwind CSS Documentation](https://tailwindcss.com/docs)
-- [HeroUI Documentation](https://heroui.com/docs)
+- [shadcn/ui Documentation](https://ui.shadcn.com/)
 
 ## Deploy on Vercel
 

@@ -93,5 +93,5 @@ function App() {
 - React 18+
 - Better Auth
 - Heroicons
-- DaisyUI
+- shadcn/ui
 - Tailwind CSS
