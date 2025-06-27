@@ -25,7 +25,7 @@
     "@heroicons/react": "^2.2.0",
     "@libsql/client": "^0.15.9",
     "@marsidev/react-turnstile": "^1.1.0",
-    "@react-email/components": "0.0.42",
+    "@react-email/components": "0.1.1",
     "babel-plugin-react-compiler": "^19.1.0-rc.2",
     "better-auth": "^1.2.10",
     "better-auth-harmony": "^1.2.5",
