@@ -29,7 +29,7 @@
     "babel-plugin-react-compiler": "^19.1.0-rc.2",
     "better-auth": "^1.2.10",
     "better-auth-harmony": "^1.2.5",
-    "better-sqlite3": "^11.10.0",
+    "better-sqlite3": "^12.2.0",
     "dotenv": "^16.5.0",
     "drizzle-orm": "^0.44.2",
     "next": "^15.4.0-canary.91",
